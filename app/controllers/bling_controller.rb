@@ -2,6 +2,8 @@
 require 'bling'
 
 class BlingController < ApplicationController
+  skip_filter :authenticate!, :only => [:create]
+
   def create
     order = MultiJson.load(params[:order] || '{}')
     bling = Bling.new('095ce0af267fce959dce5cdba481d8cabf891d8d')
