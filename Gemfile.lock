@@ -31,6 +31,9 @@ GEM
     arel (3.0.2)
     builder (3.0.4)
     erubis (2.7.0)
+    exception_notification (4.0.0)
+      actionmailer (>= 3.0.4)
+      activesupport (>= 3.0.4)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     faraday_middleware (0.8.7)
@@ -93,6 +96,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  exception_notification (= 4.0.0)
   faraday_middleware (= 0.8.7)
   rails (= 3.2.13)
   unicorn (= 4.6.3)
