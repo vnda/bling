@@ -4,9 +4,9 @@ class AdminUser < ActiveRecord::Base
 
   validates_presence_of :email, :password_hash
   validates_confirmation_of :password
-  validates :email, :email => true
+  validates :email, :email => true, :uniqueness => true
 
-  before_save :encrypt_password
+  before_validation :encrypt_password
 
   def password_match?(password)
     password_hash == AdminUser.encrypt_password(password, password_salt)
@@ -22,8 +22,10 @@ class AdminUser < ActiveRecord::Base
   protected
 
   def encrypt_password
-    self.password_salt = Digest::SHA256.hexdigest([Time.to_s, SecureRandom.hex(32)].join("--"))
-    self.password_hash = self.class.encrypt_password(password, password_salt) unless password.blank?
+    unless password.blank?
+      self.password_salt = Digest::SHA256.hexdigest([Time.to_s, SecureRandom.hex(32)].join("--"))
+      self.password_hash = self.class.encrypt_password(password, password_salt)
+    end
   end
 
   def self.encrypt_password(password, salt)
