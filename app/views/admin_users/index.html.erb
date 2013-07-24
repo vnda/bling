@@ -1,0 +1,16 @@
+<header>
+  <h3>Usuários <%= link_to('<i class="icon-plus icon-white"></i>'.html_safe, new_admin_user_path, :class => "btn btn-mini btn-success") %></h3>
+</header>
+
+<table class="table">
+  <tr>
+    <th class="span1">&nbsp;</th>
+    <th>Email</th>
+  </tr>
+  <% collection.each do |user| %>
+    <tr>
+      <td class="actions"><%= delete_action(user) %></td>
+      <td><%= link_to(user.email, edit_admin_user_path(user)) %></td>
+    </tr>
+  <% end %>
+</table>

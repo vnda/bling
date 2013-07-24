@@ -1,0 +1,25 @@
+<%= form_for(resource) do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <div class="control-group">
+      <%= link_to('Canceclar', :back, :class => "btn") %>
+      <button type="submit" class="btn btn-inverse">Salvar</button>
+    </div>
+  </fieldset>
+<% end %>

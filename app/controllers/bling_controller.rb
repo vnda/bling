@@ -3,10 +3,12 @@ require 'bling'
 
 class BlingController < ApplicationController
   skip_filter :authenticate!, :only => [:create]
+  before_filter :authenticate_by_token!, :only => [:create]
 
   def create
     order = MultiJson.load(params[:order] || '{}')
-    bling = Bling.new('095ce0af267fce959dce5cdba481d8cabf891d8d')
+    token = Shop.where(:access_token => current_access_token).pluck(:bling_key).first
+    bling = Bling.new(token)
     render :json => bling.send(params[:type], order)
   end
 end

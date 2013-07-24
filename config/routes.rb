@@ -1,7 +1,8 @@
 VndaBling::Application.routes.draw do
   root :to => 'shops#index'
 
-  resources :shops
+  resources :shops, :except => [:show]
+  resources :admin_users, :except => [:show]
 
   post '/bling', :to => 'bling#create'
 

@@ -1,12 +1,18 @@
-<table>
+<header>
+  <h3>Lojas <%= link_to('<i class="icon-plus icon-white"></i>'.html_safe, new_shop_path, :class => "btn btn-mini btn-success") %></h3>
+</header>
+
+<table class="table">
   <tr>
+    <th class="span1">&nbsp;</th>
     <th>Nome</th>
-    <th>Tockem de acesso</th>
+    <th>Token de acesso</th>
     <th>API Key do Bling</th>
   </tr>
   <% collection.each do |shop| %>
     <tr>
-      <td><%= shop.name %></td>
+      <td class="actions"><%= delete_action(shop) %></td>
+      <td><%= link_to(shop.name, edit_shop_path(shop)) %></td>
       <td><%= shop.access_token %></td>
       <td><%= shop.bling_key %></td>
     </tr>

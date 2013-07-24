@@ -2,7 +2,7 @@ class AdminUser < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
   attr_accessible :email, :password, :password_confirmation
 
-  validates_presence_of :email
+  validates_presence_of :email, :password_hash
   validates_confirmation_of :password
   validates :email, :email => true
 
@@ -23,7 +23,7 @@ class AdminUser < ActiveRecord::Base
 
   def encrypt_password
     self.password_salt = Digest::SHA256.hexdigest([Time.to_s, SecureRandom.hex(32)].join("--"))
-    self.password_hash = self.class.encrypt_password(password, password_salt)
+    self.password_hash = self.class.encrypt_password(password, password_salt) unless password.blank?
   end
 
   def self.encrypt_password(password, salt)

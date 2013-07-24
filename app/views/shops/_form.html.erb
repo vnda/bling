@@ -1,0 +1,20 @@
+<%= form_for(resource) do |f| %>
+  <%= render 'shared/error_messages' %>
+
+  <fieldset>
+    <div class="control-group">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :bling_key %>
+      <%= f.text_field :bling_key, :class => 'input-xxlarge' %>
+    </div>
+
+    <div class="control-group">
+      <%= link_to('Canceclar', :back, :class => "btn") %>
+      <button type="submit" class="btn btn-inverse">Salvar</button>
+    </div>
+  </fieldset>
+<% end %>

@@ -2,14 +2,41 @@
 <html>
 <head>
   <title>VndaBling</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "bootstrap.min.css", "common.css", :media => "all" %>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <%= javascript_include_tag "jquery-ujs.js", "bootstrap.min.js", "common.js" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= link_to("Sair", logout_path, :method => :delete, :class => "btn btn-mini btn-danger") %>
-<%= yield %>
+  <% if signed_in? %>
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="<%= root_path %>">vnda-bling</a>
+        <ul class="nav">
+          <li class="<%= 'active' if params[:controller] == 'shops' %>">
+            <a href="<%= shops_path %>">Lojas</a>
+          </li>
+          <li class="<%= 'active' if params[:controller] == 'admin_users' %>">
+            <a href="<%= admin_users_path %>">Usuários</a>
+          </li>
+        </ul>
+        <ul class="nav pull-right">
+          <li><%= link_to("Sair", logout_path, :method => :delete) %></li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="container-fluid">
+    <div class="row-fluid">
+      <div class="span12">
+        <%= render 'shared/flash_messages' %>
+
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
