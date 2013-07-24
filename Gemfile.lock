@@ -49,6 +49,7 @@ GEM
     mime-types (1.23)
     multi_json (1.7.7)
     multipart-post (1.2.0)
+    pg (0.16.0)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -98,5 +99,6 @@ PLATFORMS
 DEPENDENCIES
   exception_notification (= 4.0.0)
   faraday_middleware (= 0.8.7)
+  pg
   rails (= 3.2.13)
   unicorn (= 4.6.3)
