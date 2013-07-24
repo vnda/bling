@@ -31,7 +31,7 @@
   <div class="container-fluid">
     <div class="row-fluid">
       <div class="span12">
-        <%= render 'shared/flash_messages' %>
+        <%= render 'shared/flash_messages' if signed_in? %>
 
         <%= yield %>
       </div>
