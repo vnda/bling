@@ -4,7 +4,7 @@ VndaBling::Application.routes.draw do
   resources :shops, :except => [:show]
   resources :admin_users, :except => [:show]
 
-  post '/bling', :to => 'bling#create'
+  post '/bling/:token', :to => 'bling#create'
 
   get "/login", :to => "login#new", :as => :login
   post "/login", :to => "login#create"

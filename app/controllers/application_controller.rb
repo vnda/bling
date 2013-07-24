@@ -20,15 +20,6 @@ class ApplicationController < ActionController::Base
     (current_user && !current_user.renew_password?)
   end
 
-  def current_access_token
-    env["HTTP_X_TOKEN"].gsub(/[^0-9A-Za-z]/, '') unless env["HTTP_X_TOKEN"].blank?
-  end
-
-  def authenticate_by_token!
-    token = current_access_token
-    render :json => {:error => 'invalid token'} if token.blank? || Shop.where(:access_token => token).blank?
-  end
-
   protected
 
   def authenticate!
@@ -37,6 +28,4 @@ class ApplicationController < ActionController::Base
       redirect_to(login_url)
     end
   end
-
-
 end
