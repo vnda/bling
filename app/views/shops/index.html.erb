@@ -1,0 +1,14 @@
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Tockem de acesso</th>
+    <th>API Key do Bling</th>
+  </tr>
+  <% collection.each do |shop| %>
+    <tr>
+      <td><%= shop.name %></td>
+      <td><%= shop.access_token %></td>
+      <td><%= shop.bling_key %></td>
+    </tr>
+  <% end %>
+</table>
