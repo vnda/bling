@@ -3,5 +3,5 @@ VndaBling::Application.routes.draw do
 
   resources :shops, :except => [:show]
 
-  post '/bling/:token', :to => 'bling#create'
+  post '/bling/:token', :to => 'bling#create', :as => "bling"
 end

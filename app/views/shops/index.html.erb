@@ -6,14 +6,14 @@
   <tr>
     <th class="span1">&nbsp;</th>
     <th>Nome</th>
-    <th>Token de acesso</th>
+    <th>URL para envio de pedidos via POST</th>
     <th>API Key do Bling</th>
   </tr>
   <% collection.each do |shop| %>
     <tr>
       <td class="actions"><%= delete_action(shop) %></td>
       <td><%= link_to(shop.name, edit_shop_path(shop)) %></td>
-      <td><%= shop.access_token %></td>
+      <td><%= bling_url(shop.access_token) %></td>
       <td><%= shop.bling_key %></td>
     </tr>
   <% end %>
