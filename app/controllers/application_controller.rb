@@ -17,15 +17,14 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    (current_user && !current_user.renew_password?)
+    not request.authorization.nil?
   end
 
   protected
 
   def authenticate!
-    unless signed_in?
-      session[:return_to] =  request.url
-      redirect_to(login_url)
+    authenticate_or_request_with_http_basic do |username, password|
+      username == USER_NAME && password == PASSWORD
     end
   end
 end
