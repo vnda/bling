@@ -11,16 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130724170052) do
-
-  create_table "admin_users", :force => true do |t|
-    t.string   "email",          :default => "",    :null => false
-    t.string   "password_salt"
-    t.string   "password_hash"
-    t.boolean  "renew_password", :default => false, :null => false
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-  end
+ActiveRecord::Schema.define(:version => 20130730210718) do
 
   create_table "shops", :force => true do |t|
     t.string   "name",         :null => false
