@@ -2,6 +2,8 @@
 require 'bling'
 
 class BlingController < ApplicationController
+  skip_filter :authenticate!, :only => [:create]
+
   def create
     raise "token missing" if params[:token].blank?
     access_token = params[:token].gsub(/[^0-9A-Za-z]/, '')
