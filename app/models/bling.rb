@@ -52,6 +52,11 @@ class Bling
         xml.tag!("cidade", order["city"])
         xml.tag!("uf", order["state"])
         xml.tag!("email", order["email"])
+        if order["cellphone"].present?
+          xml.tag!("fone", [order["cellphone_area"], order["cellphone"]].join(''))
+        elsif
+          xml.tag!("fone", [order["phone_area"], order["phone"]].join(''))
+        end
       end
       xml.tag!("itens") do
         order["items"].each do |item|
@@ -66,9 +71,27 @@ class Bling
           end
         end
       end
+      xml.tag!("parcelas") do
+        total = installments(order["total"], order["installments"].to_i)
+        order["installments"].to_i.times do |index|
+          xml.tag!("parcela") do
+            xml.tag!("dias", ((index) * 30) )
+            xml.tag!("data", (order["confirmed_at"].to_date + index.month).strftime("%d/%m/%Y"))
+            xml.tag!("vlr", total )
+          end
+        end
+      end
       xml.tag!("vlr_frete", order["shipping_price"])
       xml.tag!("vlr_desconto", order["discount_price"])
     end
     xml.target!.tap { |str| Rails.logger.info(str) }
+  end
+
+  def installments(value, times)
+    return value if times == 1
+    value = BigDecimal.new(value.to_s)
+    price = (value / times).round(2)
+    price = (value / (times -= 1)).round(2) while price < 5
+    price.to_f
   end
 end

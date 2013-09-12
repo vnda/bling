@@ -1,6 +1,4 @@
 #encoding: utf-8
-require 'bling'
-
 class BlingController < ApplicationController
   skip_filter :authenticate!, :only => [:create]
 
