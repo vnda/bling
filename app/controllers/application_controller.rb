@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate!
+  before_filter :authenticate! if ENV["HTTP_USER"] && ENV["HTTP_PASSWORD"]
   helper_method :current_user, :resource, :collection, :signed_in?
 
   def redirect_back_or_default(default_url)
@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate!
     authenticate_or_request_with_http_basic do |username, password|
-      username == USER_NAME && password == PASSWORD
+      username == ENV["HTTP_USER"] && password == ENV["HTTP_PASSWORD"]
     end
   end
 end
