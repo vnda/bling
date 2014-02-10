@@ -8,14 +8,6 @@ class ApplicationController < ActionController::Base
     session[:return_to] = nil
   end
 
-  def current_user
-    @current_user ||= begin
-      if session[:user_id]
-        AdminUser.where(:id => session[:user_id]).first
-      end
-    end
-  end
-
   def signed_in?
     not request.authorization.nil?
   end
