@@ -3,15 +3,6 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate! if ENV["HTTP_USER"] && ENV["HTTP_PASSWORD"]
   helper_method :current_user, :resource, :collection, :signed_in?
 
-  def redirect_back_or_default(default_url)
-    redirect_to (session[:return_to] || default_url)
-    session[:return_to] = nil
-  end
-
-  def signed_in?
-    not request.authorization.nil?
-  end
-
   protected
 
   def authenticate!
