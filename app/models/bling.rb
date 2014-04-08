@@ -61,7 +61,7 @@ class Bling
       xml.tag!("itens") do
         order["items"].each do |item|
           xml.tag!("item") do
-            xml.tag!("codigo", [item["reference"], item["sku"]].join(' - '))
+            xml.tag!("codigo", item["sku"])
             xml.tag!("descricao", [item["product_name"], item["variant_name"]].join(' - '))
             xml.tag!("un", 'un')
             xml.tag!("qtde", item["quantity"])
