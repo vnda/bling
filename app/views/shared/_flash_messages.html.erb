@@ -2,8 +2,5 @@
   <div class="alert alert-success"><%= flash[:notice] %></div>
 <% end %>
 <% if flash[:alert].present? %>
-  <div class="alert"><%= flash[:alert] %></div>
-<% end %>
-<% if flash[:error].present? %>
-  <div class="alert alert-error"><%= flash[:error] %></div>
+  <div class="alert alert-warning"><%= flash[:alert] %></div>
 <% end %>

@@ -1,20 +1,25 @@
-<header>
-  <h3>Lojas <%= link_to('<i class="icon-plus icon-white"></i>'.html_safe, new_shop_path, :class => "btn btn-mini btn-success") %></h3>
+<header class="page-header clearfix">
+  <h3 class="pull-left" style="margin-top: 0">Lojas</h3>
+  <%= link_to icon_tag(:plus) + ' Nova Loja', new_shop_path, class: 'btn btn-success pull-right' %>
 </header>
 
 <table class="table">
-  <tr>
-    <th class="span1">&nbsp;</th>
-    <th>Nome</th>
-    <th>URL para envio de pedidos via POST</th>
-    <th>API Key do Bling</th>
-  </tr>
-  <% collection.each do |shop| %>
+  <thead>
     <tr>
-      <td class="actions"><%= delete_action(shop) %></td>
-      <td><%= link_to(shop.name, edit_shop_path(shop)) %></td>
-      <td><%= bling_url(shop.access_token) %></td>
-      <td><%= shop.bling_key %></td>
+      <th>Nome</th>
+      <th>URL para envio de pedidos via POST</th>
+      <th>API Key do Bling</th>
+      <th></th>
     </tr>
-  <% end %>
+  </thead>
+  <tbody>
+    <% collection.each do |shop| %>
+      <tr>
+        <td><%= link_to(shop.name, edit_shop_path(shop)) %></td>
+        <td><%= bling_url(shop.access_token) %></td>
+        <td><%= shop.bling_key %></td>
+        <td><%= delete_action(shop) %></td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>

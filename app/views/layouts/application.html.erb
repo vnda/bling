@@ -2,33 +2,20 @@
 <html>
 <head>
   <title>VndaBling</title>
-  <%= stylesheet_link_tag    "bootstrap.min.css", "common.css", :media => "all" %>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-  <%= javascript_include_tag "jquery-ujs.js", "bootstrap.min.js", "common.js" %>
+  <%= stylesheet_link_tag '//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css',
+                          'application.css' %>
+  <%= javascript_include_tag '//code.jquery.com/jquery-2.1.1.min.js',
+                             '//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js',
+                             'jquery-ujs.js',
+                             'application.js' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-  <div class="navbar">
-    <div class="navbar-inner">
-      <a class="brand" href="<%= root_path %>">vnda-bling</a>
-      <ul class="nav">
-        <li class="<%= 'active' if params[:controller] == 'shops' %>">
-          <a href="<%= shops_path %>">Lojas</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <%= render 'layouts/navbar' %>
 
   <div class="container-fluid">
-    <div class="row-fluid">
-      <div class="span12">
-        <%= render 'shared/flash_messages' %>
-
-        <%= yield %>
-      </div>
-    </div>
+    <%= render 'shared/flash_messages' %>
+    <%= yield %>
   </div>
-
 </body>
 </html>
