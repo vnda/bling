@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate! if ENV["HTTP_USER"] && ENV["HTTP_PASSWORD"]
   helper_method :current_user, :resource, :collection, :signed_in?
 
+  def status
+    render text: 'OK'
+  end
+
   protected
 
   def authenticate!
