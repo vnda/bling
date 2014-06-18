@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130730210718) do
+ActiveRecord::Schema.define(:version => 20140618195413) do
 
   create_table "shops", :force => true do |t|
-    t.string   "name",         :null => false
-    t.string   "access_token", :null => false
-    t.string   "bling_key",    :null => false
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.string   "name",                                :null => false
+    t.string   "access_token",                        :null => false
+    t.string   "bling_key",                           :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "bling_api_version", :default => "v1"
   end
 
 end

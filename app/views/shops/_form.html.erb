@@ -13,6 +13,17 @@
     </div>
 
     <div class="control-group">
+      <%= f.label :bling_api_version %>
+
+      <div><br></div>
+      <% Shop.api_versions.each do |api_version| %>
+        <%= f.label :bling_api_version, value: api_version, class: "control-label inline radio" do |teste| %>
+          <%= f.radio_button :bling_api_version, api_version, class: "radio" %> <%= api_version %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="control-group">
       <%= link_to('Canceclar', :back, :class => "btn") %>
       <button type="submit" class="btn btn-inverse">Salvar</button>
     </div>
