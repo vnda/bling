@@ -17,7 +17,7 @@
 
       <div><br></div>
       <% Shop.api_versions.each do |api_version| %>
-        <%= f.label :bling_api_version, value: api_version, class: "control-label inline radio" do |teste| %>
+        <%= f.label :bling_api_version, value: api_version, class: "control-label inline radio" do %>
           <%= f.radio_button :bling_api_version, api_version, class: "radio" %> <%= api_version %>
         <% end %>
       <% end %>
