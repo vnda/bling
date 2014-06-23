@@ -12,7 +12,7 @@ class BlingController < ApplicationController
     raise "request body is empty" if body.blank?
     order = MultiJson.load(body)
 
-    bling = Bling.new(shop.bling_key)
+    bling = Bling.new(shop.bling_key, shop.bling_api_version)
     render :json => bling.send('order', order)
   end
 end
