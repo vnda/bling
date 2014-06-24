@@ -2,8 +2,9 @@
 require "builder"
 
 class Bling
-  def initialize(apikey)
+  def initialize(apikey, api_version)
     @apikey = apikey
+    @api_version = api_version
   end
 
   def send(type, order)
@@ -17,21 +18,9 @@ class Bling
   end
 
   def send_to_bling(type, xml)
-    url = "http://www.bling.com.br"
-    post_url = (type == 'nfe' ? '/recepcao.nfe.php' : '/recepcao.pedido.php')
-    post_params = {
-      :apiKey => @apikey,
-      :pedidoXML => xml
-    }
-    require "faraday_middleware"
-    connection = Faraday.new(url) do |builder|
-      builder.request  :url_encoded
-      builder.response :logger
-      builder.adapter :net_http
-    end
-
-    response = connection.post post_url, post_params
-    raise response.body unless response.body == 'OK'
+    communicator = Bling::BlingCommunicator.new(@api_version, @apikey)
+    response = communicator.send_to_bling(type, xml)
+    raise response.body unless communicator.ok?
     true
   end
 

@@ -13,6 +13,11 @@ class Bling::Communicators::BlingV1Communicator
       builder.adapter :net_http
     end
 
-    connection.post post_url, post_params
+    response = connection.post post_url, post_params
+    @ok = response.body == 'OK'
+  end
+
+  def ok?
+    !!@ok
   end
 end
