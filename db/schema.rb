@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140618195413) do
+ActiveRecord::Schema.define(:version => 20140624202800) do
+
+  create_table "bling_orders", :force => true do |t|
+    t.integer  "vnda_order_id"
+    t.integer  "bling_order_id"
+    t.integer  "bling_nfe_id"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "bling_orders", ["bling_nfe_id"], :name => "index_bling_orders_on_bling_nfe_id"
+  add_index "bling_orders", ["bling_order_id"], :name => "index_bling_orders_on_bling_order_id"
+  add_index "bling_orders", ["vnda_order_id"], :name => "index_bling_orders_on_vnda_order_id"
 
   create_table "shops", :force => true do |t|
     t.string   "name",                                :null => false

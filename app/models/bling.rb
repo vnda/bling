@@ -7,8 +7,9 @@ class Bling
   end
 
   def send(type, order)
-    if type.present? && order.present?
-      xml = generate_xml(order)
+    @order = order
+    if type.present? && @order.present?
+      xml = generate_xml(@order)
       response = send_to_bling(type, xml)
     else
       raise 'params missing'
@@ -19,6 +20,11 @@ class Bling
   def send_to_bling(type, xml)
     communicator = Bling::BlingCommunicator.new(@api_version, @apikey)
     response = communicator.send_to_bling(type, xml)
+    if communicator.save_bd?
+      raise "Error on save BlingOrder to database" unless BlingOrder.create(:vnda_order_id => @order["id"],
+                                                                             :bling_order_id => communicator.bling_order_id,
+                                                                             :bling_nfe_id => communicator.bling_nfe_id  )
+    end
     raise response.body unless communicator.ok?
     true
   end
