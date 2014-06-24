@@ -6,7 +6,6 @@ class Bling::Communicators::BlingV1Communicator
       :apiKey => apikey,
       :pedidoXML => xml
     }
-    require "faraday_middleware"
     connection = Faraday.new(url) do |builder|
       builder.request  :url_encoded
       builder.response :logger
@@ -20,4 +19,8 @@ class Bling::Communicators::BlingV1Communicator
   def ok?
     !!@ok
   end
+
+  def save_bd?
+    false
+  end  
 end

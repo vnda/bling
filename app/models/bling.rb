@@ -1,6 +1,5 @@
 #encoding: utf-8
 require "builder"
-
 class Bling
   def initialize(apikey, api_version)
     @apikey = apikey
