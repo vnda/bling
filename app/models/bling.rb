@@ -27,7 +27,7 @@ class Bling
                                                                              :bling_danfe_key => communicator.bling_danfe_key,
                                                                              :bling_danfe_url => communicator.bling_danfe_url  )
     end
-    raise "Error sending to bling" unless communicator.ok?
+    raise communicator.error_message unless communicator.ok?
     true
   end
 

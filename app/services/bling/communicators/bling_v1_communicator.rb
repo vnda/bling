@@ -12,8 +12,9 @@ class Bling::Communicators::BlingV1Communicator
       builder.adapter :net_http
     end
 
-    response = connection.post post_url, post_params
-    @ok = response.body == 'OK'
+    @response = connection.post post_url, post_params
+    @ok = @response.body == 'OK'
+
   end
 
   def ok?
@@ -23,4 +24,8 @@ class Bling::Communicators::BlingV1Communicator
   def save_bd?
     false
   end  
+
+  def error_message
+    @response.body
+  end
 end

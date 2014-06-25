@@ -24,7 +24,8 @@ class Bling::Communicators::BlingV2Communicator
       @bling_danfe_url = response_danfe.first["linkDanfe"]
 
       @ok = true
-    rescue
+    rescue Exception => e
+      @error_message = e.message
       @ok = false
     end
   end
@@ -35,6 +36,10 @@ class Bling::Communicators::BlingV2Communicator
 
   def save_bd?
     true
+  end
+
+  def error_message
+    @error_message || ""
   end
 
   private
@@ -63,10 +68,10 @@ class Bling::Communicators::BlingV2Communicator
       builder.request  :url_encoded
       builder.adapter :net_http
       builder.response :json, :content_type => /\bjson$/
-      end
+    end
 
     response = connection.post post_url, post_params
-    raise "Error sending data to bling" unless response.body["retorno"]["erros"].blank?
+    raise response.body["retorno"]["erros"].first[1] unless response.body["retorno"]["erros"].blank?
     response
   end
 
