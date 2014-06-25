@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140624202800) do
+ActiveRecord::Schema.define(:version => 20140625134214) do
 
   create_table "bling_orders", :force => true do |t|
     t.integer  "vnda_order_id"
     t.integer  "bling_order_id"
     t.integer  "bling_nfe_id"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "bling_danfe_key"
+    t.string   "bling_danfe_url"
   end
 
   add_index "bling_orders", ["bling_nfe_id"], :name => "index_bling_orders_on_bling_nfe_id"

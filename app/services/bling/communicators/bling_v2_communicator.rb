@@ -1,20 +1,32 @@
 class Bling::Communicators::BlingV2Communicator
-  attr_reader :bling_order_id
-  attr_reader :bling_nfe_id
+  attr_reader :bling_order_id, :bling_nfe_id, :bling_nfe_id, :bling_danfe_key, :bling_danfe_url
+
   ENDPOINT = "https://bling.com.br/Api/v2/" 
+  NFE_SERIE = 1
 
   def send_to_bling(type, xml, apikey)
     @apikey = apikey
 
-    response_order = save("order", xml)
-    @ok = response_order.body["retorno"]["erros"].blank?
-    return response_order unless ok?
-    @bling_order_id = response_order.body["retorno"]["pedidos"].first["pedido"]["numero"]
+    begin
+      response_order = save("order", xml)
+      @bling_order_id = response_order.body["retorno"]["pedidos"].first["pedido"]["numero"]
 
-    response_nfe = save("nfe", xml)
-    @ok = response_nfe.body["retorno"]["erros"].blank?
-    @bling_nfe_id = response_nfe.body["retorno"]["notasfiscais"].first["notaFiscal"]["numero"]
-    response_nfe.body
+      response_nfe = save("nfe", xml)
+      @bling_nfe_id = response_nfe.body["retorno"]["notasfiscais"].first["notaFiscal"]["numero"]
+
+      # descomentar quando tiver o certificado e remover o outro trecho.
+      # response_danfe = save("danfe", nil, @bling_nfe_id)
+      # @bling_danfe_key = response_danfe.body["retorno"]["notaFiscal"].first["chaveAcesso"]
+      # @bling_danfe_url = response_danfe.body["retorno"]["notaFiscal"].first["linkDanfe"]
+
+      response_danfe = [ { "chaveAcesso" => "chaveTeste", "linkDanfe" => "http://teste" } ]
+      @bling_danfe_key = response_danfe.first["chaveAcesso"]
+      @bling_danfe_url = response_danfe.first["linkDanfe"]
+
+      @ok = true
+    rescue
+      @ok = false
+    end
   end
 
   def ok?
@@ -27,11 +39,14 @@ class Bling::Communicators::BlingV2Communicator
 
   private
 
-  def save(type, xml)
+  def save(type, xml, nfe_number = nil)
     type_path = case type
                 when "order"
                   "/pedido/json"
                 when "nfe"
+                  "/notafiscal/json"
+                when "danfe"
+                  danfe = true 
                   "/notafiscal/json"
                 end
 
@@ -40,13 +55,19 @@ class Bling::Communicators::BlingV2Communicator
       :apikey => @apikey,
       :xml => xml
     }
+    if danfe
+      post_params[:serie] = NFE_SERIE
+      post_params[:number] = nfe_number
+    end
     connection = Faraday.new(ENDPOINT) do |builder|
       builder.request  :url_encoded
       builder.adapter :net_http
       builder.response :json, :content_type => /\bjson$/
       end
 
-    connection.post post_url, post_params
+    response = connection.post post_url, post_params
+    raise "Error sending data to bling" unless response.body["retorno"]["erros"].blank?
+    response
   end
 
 end

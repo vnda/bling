@@ -23,9 +23,11 @@ class Bling
     if communicator.save_bd?
       raise "Error on save BlingOrder to database" unless BlingOrder.create(:vnda_order_id => @order["id"],
                                                                              :bling_order_id => communicator.bling_order_id,
-                                                                             :bling_nfe_id => communicator.bling_nfe_id  )
+                                                                             :bling_nfe_id => communicator.bling_nfe_id,
+                                                                             :bling_danfe_key => communicator.bling_danfe_key,
+                                                                             :bling_danfe_url => communicator.bling_danfe_url  )
     end
-    raise response.body unless communicator.ok?
+    raise "Error sending to bling" unless communicator.ok?
     true
   end
 
