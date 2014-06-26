@@ -1,14 +1,15 @@
 #encoding: utf-8
 require "builder"
-
 class Bling
-  def initialize(apikey)
+  def initialize(apikey, api_version)
     @apikey = apikey
+    @api_version = api_version
   end
 
   def send(type, order)
-    if type.present? && order.present?
-      xml = generate_xml(order)
+    @order = order
+    if type.present? && @order.present?
+      xml = generate_xml(@order)
       response = send_to_bling(type, xml)
     else
       raise 'params missing'
@@ -17,21 +18,16 @@ class Bling
   end
 
   def send_to_bling(type, xml)
-    url = "http://www.bling.com.br"
-    post_url = (type == 'nfe' ? '/recepcao.nfe.php' : '/recepcao.pedido.php')
-    post_params = {
-      :apiKey => @apikey,
-      :pedidoXML => xml
-    }
-    require "faraday_middleware"
-    connection = Faraday.new(url) do |builder|
-      builder.request  :url_encoded
-      builder.response :logger
-      builder.adapter :net_http
+    communicator = Bling::BlingCommunicator.new(@api_version, @apikey)
+    response = communicator.send_to_bling(type, xml)
+    if communicator.save_bd?
+      raise "Error on save BlingOrder to database" unless BlingOrder.create(:vnda_order_id => @order["id"],
+                                                                             :bling_order_id => communicator.bling_order_id,
+                                                                             :bling_nfe_id => communicator.bling_nfe_id,
+                                                                             :bling_danfe_key => communicator.bling_danfe_key,
+                                                                             :bling_danfe_url => communicator.bling_danfe_url  )
     end
-
-    response = connection.post post_url, post_params
-    raise response.body unless response.body == 'OK'
+    raise communicator.error_message unless communicator.ok?
     true
   end
 

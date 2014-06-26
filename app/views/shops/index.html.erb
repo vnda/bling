@@ -8,6 +8,7 @@
     <th>Nome</th>
     <th>URL para envio de pedidos via POST</th>
     <th>API Key do Bling</th>
+    <th>Versão da API do Bling</th>
   </tr>
   <% collection.each do |shop| %>
     <tr>
@@ -15,6 +16,7 @@
       <td><%= link_to(shop.name, edit_shop_path(shop)) %></td>
       <td><%= bling_url(shop.access_token) %></td>
       <td><%= shop.bling_key %></td>
+      <td><%= shop.bling_api_version %></td>
     </tr>
   <% end %>
 </table>
