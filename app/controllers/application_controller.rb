@@ -1,7 +1,12 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :authenticate! if ENV["HTTP_USER"] && ENV["HTTP_PASSWORD"]
+  skip_filter :authenticate!, :only => [:status]
   helper_method :current_user, :resource, :collection, :signed_in?
+
+  def status
+    render text: 'OK'
+  end
 
   protected
 

@@ -2,31 +2,31 @@
   <%= render 'shared/error_messages' %>
 
   <fieldset>
-    <div class="control-group">
+    <div class="form-group">
       <%= f.label :name %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control' %>
     </div>
-
-    <div class="control-group">
+    <div class="form-group">
       <%= f.label :bling_key %>
-      <%= f.text_field :bling_key, :class => 'input-xxlarge' %>
+      <%= f.text_field :bling_key, class: 'form-control' %>
     </div>
-
-    <div class="control-group inline">
+    <p>
+    <div class="form-group">
       <%= f.label :bling_api_version %>
-
-      <% Shop.api_versions.each do |api_version| %>
-        <%= f.label :bling_api_version, value: api_version, class: "radio inline" do %>
-          <%= f.radio_button :bling_api_version, api_version %> <%= api_version %>
+      <div>
+        <% Shop.api_versions.each do |api_version| %>
+          <%= f.label :bling_api_version, value: api_version, class: "radio-inline" do %>
+            <%= f.radio_button :bling_api_version, api_version %> <%= api_version %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
 
     <br />
 
-    <div class="control-group">
-      <%= link_to('Canceclar', :back, :class => "btn") %>
-      <button type="submit" class="btn btn-inverse">Salvar</button>
-    </div>
+    <p>
+      <input class="btn btn-primary" name="commit" type="submit" value="Salvar">
+      <a href="http://bling.vnda.com.br/" class="btn btn-default">Cancelar</a>
+    </p>
   </fieldset>
 <% end %>
