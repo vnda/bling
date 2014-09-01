@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140901124206) do
+ActiveRecord::Schema.define(:version => 20140901172524) do
 
   create_table "bling_orders", :force => true do |t|
     t.integer  "vnda_order_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(:version => 20140901124206) do
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
     t.string   "bling_api_version", :default => "v1"
+    t.integer  "nfe_serie",         :default => 1
   end
 
 end

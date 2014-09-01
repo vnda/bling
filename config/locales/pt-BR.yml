@@ -260,6 +260,7 @@ pt-BR:
         access_token: "Chave de acesso"
         bling_key: "Chave do Bling"
         bling_api_version: "Versão da API do Bling"
+        nfe_serie: "Série da nota fiscal no Bling"
 
     errors:
       template:
