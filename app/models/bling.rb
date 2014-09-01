@@ -1,9 +1,10 @@
 #encoding: utf-8
 require "builder"
 class Bling
-  def initialize(apikey, api_version)
+  def initialize(apikey, api_version, shop_id)
     @apikey = apikey
     @api_version = api_version
+    @shop_id = shop_id
   end
 
   def send(type, order)
@@ -25,7 +26,8 @@ class Bling
                                                                              :bling_order_id => communicator.bling_order_id,
                                                                              :bling_nfe_id => communicator.bling_nfe_id,
                                                                              :bling_danfe_key => communicator.bling_danfe_key,
-                                                                             :bling_danfe_url => communicator.bling_danfe_url  )
+                                                                             :bling_danfe_url => communicator.bling_danfe_url,
+                                                                             :shop_id => @shop_id  )
     end
     raise communicator.error_message unless communicator.ok?
     true

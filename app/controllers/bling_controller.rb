@@ -12,13 +12,18 @@ class BlingController < ApplicationController
     raise "request body is empty" if body.blank?
     order = MultiJson.load(body)
 
-    bling = Bling.new(shop.bling_key, shop.bling_api_version)
+    bling = Bling.new(shop.bling_key, shop.bling_api_version, shop.id)
     render :json => bling.send('order', order)
   end
 
   def danfe
+    raise "token missing" if params[:token].blank?
+    access_token = params[:token].gsub(/[^0-9A-Za-z]/, '')
+    shop = Shop.where(:access_token => access_token).first
+    raise "token not found" unless shop
+
     raise "order id missing" if params[:order_id].blank?
-    bling_order = BlingOrder.where(:vnda_order_id => params[:order_id]).first
+    bling_order = BlingOrder.where(:vnda_order_id => params[:order_id], :shop_id => shop.id).first
     unless bling_order
       render :nothing => true, :status => 204
       return

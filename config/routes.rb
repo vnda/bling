@@ -6,5 +6,5 @@ VndaBling::Application.routes.draw do
 
   post '/bling/:token', :to => 'bling#create', :as => "bling"
 
-  get '/danfe/:order_id', :to => 'bling#danfe', :as => "danfe_url"
+  get '/danfe/:token/:order_id', :to => 'bling#danfe', :as => "danfe_url"
 end
