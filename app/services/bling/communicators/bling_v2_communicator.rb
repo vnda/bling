@@ -1,7 +1,7 @@
 class Bling::Communicators::BlingV2Communicator
   attr_reader :bling_order_id, :bling_nfe_id, :bling_nfe_id, :bling_danfe_key, :bling_danfe_url
 
-  ENDPOINT = "https://bling.com.br/Api/v2/" 
+  ENDPOINT = "https://bling.com.br/Api/v2/"
   NFE_SERIE = 1
 
   def send_to_bling(type, xml, apikey)
@@ -14,14 +14,9 @@ class Bling::Communicators::BlingV2Communicator
       response_nfe = save("nfe", xml)
       @bling_nfe_id = response_nfe.body["retorno"]["notasfiscais"].first["notaFiscal"]["numero"]
 
-      # descomentar quando tiver o certificado e remover o outro trecho.
-      # response_danfe = save("danfe", nil, @bling_nfe_id)
-      # @bling_danfe_key = response_danfe.body["retorno"]["notaFiscal"].first["chaveAcesso"]
-      # @bling_danfe_url = response_danfe.body["retorno"]["notaFiscal"].first["linkDanfe"]
-
-      response_danfe = [ { "chaveAcesso" => "chaveTeste", "linkDanfe" => "http://teste" } ]
-      @bling_danfe_key = response_danfe.first["chaveAcesso"]
-      @bling_danfe_url = response_danfe.first["linkDanfe"]
+      response_danfe = save("danfe", nil, @bling_nfe_id)
+      @bling_danfe_key = response_danfe.body["retorno"]["notaFiscal"].first["chaveAcesso"]
+      @bling_danfe_url = response_danfe.body["retorno"]["notaFiscal"].first["linkDanfe"]
 
       @ok = true
     rescue Exception => e
@@ -51,7 +46,7 @@ class Bling::Communicators::BlingV2Communicator
                 when "nfe"
                   "/notafiscal/json"
                 when "danfe"
-                  danfe = true 
+                  danfe = true
                   "/notafiscal/json"
                 end
 
