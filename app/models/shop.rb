@@ -9,7 +9,7 @@ class Shop < ActiveRecord::Base
 
   def validate_danfe
     if self.bling_generate_nfe.blank? && self.bling_generate_danfe
-      errors.add(:bling_generate_danfe, "can't be false")
+      errors.add(:bling_generate_danfe, :nfe_presence)
     end
   end
 

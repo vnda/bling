@@ -213,7 +213,7 @@ pt-BR:
 
     messages: &errors_messages
       not_saved: "%{resource} não foi salvo"
-      validate_presence: 'asd'
+      nfe_presence: '- Gerar NFe precisa estar marcado como sim'
       inclusion: "não está incluído na lista"
       exclusion: "não está disponível"
       invalid: "não é válido"
