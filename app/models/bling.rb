@@ -56,6 +56,11 @@ class Bling
           xml.tag!("fone", [order["phone_area"], order["phone"]].join(''))
         end
       end
+      xml.tag!("transporte") do
+        if order["extra"]["cotation_id"].present?
+          xml.tag!("codigo_cotacao", order["extra"]["cotation_id"])
+        end
+      end
       xml.tag!("itens") do
         order["items"].each do |item|
           xml.tag!("item") do
