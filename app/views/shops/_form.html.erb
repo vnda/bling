@@ -26,6 +26,32 @@
       </div>
     </div>
 
+    <div class="form-group">
+      <%= f.label :bling_generate_nfe %>
+      <div>
+        <%= f.label :bling_generate_nfe, class: "radio-inline" do %>
+          <%= f.radio_button :bling_generate_nfe, true %> Sim
+        <% end %>
+
+        <%= f.label :bling_generate_nfe, class: "radio-inline" do %>
+          <%= f.radio_button :bling_generate_nfe, false %> Não
+        <% end %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :bling_generate_danfe %>
+      <div>
+        <%= f.label :bling_generate_danfe, class: "radio-inline" do %>
+          <%= f.radio_button :bling_generate_danfe, true %> Sim
+        <% end %>
+
+        <%= f.label :bling_generate_danfe, class: "radio-inline" do %>
+          <%= f.radio_button :bling_generate_danfe, false %> Não
+        <% end %>
+      </div>
+    </div>
+
     <br />
 
     <p>

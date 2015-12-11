@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140901172524) do
+ActiveRecord::Schema.define(:version => 20151211134342) do
 
   create_table "bling_orders", :force => true do |t|
     t.integer  "vnda_order_id"
@@ -29,13 +29,15 @@ ActiveRecord::Schema.define(:version => 20140901172524) do
   add_index "bling_orders", ["vnda_order_id"], :name => "index_bling_orders_on_vnda_order_id"
 
   create_table "shops", :force => true do |t|
-    t.string   "name",                                :null => false
-    t.string   "access_token",                        :null => false
-    t.string   "bling_key",                           :null => false
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.string   "bling_api_version", :default => "v1"
-    t.integer  "nfe_serie",         :default => 1
+    t.string   "name",                                   :null => false
+    t.string   "access_token",                           :null => false
+    t.string   "bling_key",                              :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "bling_api_version",    :default => "v1"
+    t.integer  "nfe_serie",            :default => 1
+    t.boolean  "bling_generate_nfe",   :default => true
+    t.boolean  "bling_generate_danfe", :default => true
   end
 
 end

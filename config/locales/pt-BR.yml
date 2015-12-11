@@ -192,6 +192,8 @@ pt-BR:
         name: "Nome"
         token: "Chave de acesso"
         bling_key: "Chave do Bling"
+        bling_generate_nfe: "Gerar NFe"
+        bling_generate_danfe: "Gerar Danfe"
       admin_user:
         email: "E-mail"
         password: "Senha"
@@ -260,6 +262,8 @@ pt-BR:
         access_token: "Chave de acesso"
         bling_key: "Chave do Bling"
         bling_api_version: "Versão da API do Bling"
+        bling_generate_nfe: "Gerar NF-e"
+        bling_generate_danfe: "Gerar Danfe"
         nfe_serie: "Série da nota fiscal no Bling"
 
     errors:
