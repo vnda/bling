@@ -12,8 +12,8 @@ class Bling::BlingCommunicator
     @api_key = api_key
   end
 
-  def send_to_bling(type, xml)
-    @communicator.send_to_bling(type, xml, @api_key)
+  def send_to_bling(type, xml, shop)
+    @communicator.send_to_bling(type, xml, @api_key, shop)
   end
 
 end

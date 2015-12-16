@@ -7,20 +7,19 @@ class Shop < ActiveRecord::Base
   validates :bling_api_version, :presence => true, inclusion: { :in => proc { self.api_versions } }
   validate :validate_danfe
 
+  def self.api_versions
+    ["v1", "v2"]
+  end
+  
   def validate_danfe
     if self.bling_generate_nfe.blank? && self.bling_generate_danfe
       errors.add(:bling_generate_danfe, :nfe_presence)
     end
   end
 
-  def self.api_versions
-    ["v1", "v2"]
-  end
-  
   protected
 
   def set_access_token
     self.access_token ||= SecureRandom.hex(32)
   end
 end
-
