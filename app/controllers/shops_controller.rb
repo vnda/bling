@@ -43,6 +43,7 @@ class ShopsController < ApplicationController
 
 
   def shop_params
-     params.require(:shop).permit(:name, :bling_key, :bling_api_version, :bling_generate_nfe, :bling_generate_danfe, :nfe_serie)
+    return unless params[:shop]
+    params.require(:shop).permit(:name, :bling_key, :bling_api_version, :bling_generate_nfe, :bling_generate_danfe, :nfe_serie)
   end
 end
