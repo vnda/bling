@@ -20,7 +20,8 @@ class Bling
 
   def send_to_bling(type, xml)
     communicator = Bling::BlingCommunicator.new(@api_version, @apikey)
-    response = communicator.send_to_bling(type, xml)
+    shop = Shop.find(@shop_id)
+    response = communicator.send_to_bling(type, xml, shop)
     if communicator.save_bd?
       raise "Error on save BlingOrder to database" unless BlingOrder.create(:vnda_order_id => @order["id"],
                                                                              :bling_order_id => communicator.bling_order_id,

@@ -4,19 +4,21 @@ class Bling::Communicators::BlingV2Communicator
   ENDPOINT = "https://bling.com.br/Api/v2/"
   NFE_SERIE = 1
 
-  def send_to_bling(type, xml, apikey)
+  def send_to_bling(type, xml, apikey, shop)
     @apikey = apikey
 
     begin
       response_order = save("order", xml)
       @bling_order_id = response_order.body["retorno"]["pedidos"].first["pedido"]["numero"]
-
-      response_nfe = save("nfe", xml)
-      @bling_nfe_id = response_nfe.body["retorno"]["notasfiscais"].first["notaFiscal"]["numero"]
-
-      response_danfe = save("danfe", nil, @bling_nfe_id)
-      @bling_danfe_key = response_danfe.body["retorno"]["notaFiscal"].first["chaveAcesso"]
-      @bling_danfe_url = response_danfe.body["retorno"]["notaFiscal"].first["linkDanfe"]
+      if shop.bling_generate_nfe?
+        response_nfe = save("nfe", xml)
+        @bling_nfe_id = response_nfe.body["retorno"]["notasfiscais"].first["notaFiscal"]["numero"]
+        if shop.bling_generate_danfe?
+          response_danfe = save("danfe", nil, @bling_nfe_id)
+          @bling_danfe_key = response_danfe.body["retorno"]["notaFiscal"].first["chaveAcesso"]
+          @bling_danfe_url = response_danfe.body["retorno"]["notaFiscal"].first["linkDanfe"]
+        end
+      end
 
       @ok = true
     rescue Exception => e

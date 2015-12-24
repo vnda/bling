@@ -1,5 +1,5 @@
 class Bling::Communicators::BlingV1Communicator
-  def send_to_bling(type, xml, apikey)
+  def send_to_bling(type, xml, apikey, shop)
     url = "http://www.bling.com.br"
     post_url = (type == 'nfe' ? '/recepcao.nfe.php' : '/recepcao.pedido.php')
     post_params = {
