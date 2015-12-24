@@ -106,7 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   faraday_middleware (= 0.10.0)
-  oj
+  oj (= 2.10.2)
   pg (= 0.18.4)
   puma (= 2.15.3)
   rails (= 4.2.5)
