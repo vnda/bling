@@ -58,6 +58,7 @@ GEM
     multipart-post (2.0.0)
     nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
+    oj (2.10.2)
     pg (0.18.4)
     puma (2.15.3)
     rack (1.6.4)
@@ -105,6 +106,7 @@ PLATFORMS
 
 DEPENDENCIES
   faraday_middleware (= 0.10.0)
+  oj
   pg (= 0.18.4)
   puma (= 2.15.3)
   rails (= 4.2.5)

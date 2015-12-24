@@ -1,4 +1,3 @@
-#encoding: utf-8
 class ShopsController < ApplicationController
   def create
     if resource.save
@@ -10,7 +9,7 @@ class ShopsController < ApplicationController
   end
 
   def update
-    if resource.update_attributes(params[:shop])
+    if resource.update_attributes(shop_params)
       flash[:notice] = I18n.t(:update, :scope => [:flashes, :shop])
       redirect_to shops_url
     else
@@ -38,7 +37,12 @@ class ShopsController < ApplicationController
     @resource ||= if params[:id]
       Shop.find(params[:id])
     else
-      Shop.new(params[:shop])
+      Shop.new(shop_params)
     end
+  end
+
+
+  def shop_params
+     params.require(:shop).permit(:name, :bling_key, :bling_api_version, :bling_generate_nfe, :bling_generate_danfe, :nfe_serie)
   end
 end
